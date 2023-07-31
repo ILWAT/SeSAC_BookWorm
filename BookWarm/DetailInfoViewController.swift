@@ -7,11 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DetailInfoViewController: UIViewController {
 
+    let naviTitle: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.navigationController?.title = naviTitle
     }
 
 
