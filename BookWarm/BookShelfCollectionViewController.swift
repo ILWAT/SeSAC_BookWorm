@@ -9,16 +9,17 @@ import UIKit
 
 class BookShelfCollectionViewController: UICollectionViewController {
     //MARK: - Properties
-    let movieList = MovieData()
     
     
     //MARK: - properties
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "BookCollectionViewCell", bundle: .main)
-        self.collectionView.register(nib, forCellWithReuseIdentifier: "BookCollectionViewCell")
         
         setCollectionViewLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
     }
     
     
@@ -52,17 +53,28 @@ class BookShelfCollectionViewController: UICollectionViewController {
     
     //MARK: - numberOfItemsInSection
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movieList.movie.count
+        return MovieData.movie.count
     }
 
 
     
     //MARK: - cellForItemAt
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookCollectionViewCell", for: indexPath) as! BookCollectionViewCell
+        //UINib 인스턴스 생성
+        let nib = UINib(nibName: BookCollectionViewCell.identifier, bundle: .main)
         
-        cell.setCellUI(movieList.movie[indexPath.row])
+        //UINib CollectionViewController에 등록
+        self.collectionView.register(nib, forCellWithReuseIdentifier: BookCollectionViewCell.identifier)
         
+        //재사용 셀 인스턴스 생성
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookCollectionViewCell.identifier, for: indexPath) as! BookCollectionViewCell
+        
+        cell.tag = indexPath.row
+        
+        //셀 UI 생성
+        cell.setCellUI(MovieData.movie[indexPath.row])
+        
+        //셀 생성
         return cell
         
     }
@@ -72,7 +84,8 @@ class BookShelfCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myStoryBoard = UIStoryboard(name: "Main", bundle: .main)
         let vc = myStoryBoard.instantiateViewController(identifier: "DetailInfoViewController") as! DetailInfoViewController
-        vc.title = movieList.movie[indexPath.row].title
+       
+        vc.currentIndexPath = indexPath.row
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
