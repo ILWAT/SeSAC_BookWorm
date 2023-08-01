@@ -34,14 +34,29 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-kv-Q6k">
+                        <rect key="frame" x="68" y="238" width="51" height="51"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Lag-kv-Q6k" secondAttribute="height" multiplier="1:1" id="H7d-XW-Of8"/>
+                        </constraints>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                        <connections>
+                            <action selector="tappedLikeButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="TME-Rd-ML7"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="D7y-o7-T45" firstAttribute="top" secondItem="Lag-kv-Q6k" secondAttribute="bottom" constant="10" id="CZc-co-uVj"/>
                 <constraint firstItem="r9z-is-9x3" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="1:2" id="Grs-E8-swV"/>
                 <constraint firstAttribute="bottom" secondItem="r9z-is-9x3" secondAttribute="bottom" id="KXP-1T-nP0"/>
                 <constraint firstItem="oHK-dQ-hgB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="LYz-oA-F7Z"/>
                 <constraint firstItem="r9z-is-9x3" firstAttribute="leading" secondItem="D7y-o7-T45" secondAttribute="trailing" constant="20" id="P4Y-Rp-cLv"/>
+                <constraint firstItem="Lag-kv-Q6k" firstAttribute="height" secondItem="r9z-is-9x3" secondAttribute="height" multiplier="0.2" id="PyB-VH-SF2"/>
+                <constraint firstItem="Lag-kv-Q6k" firstAttribute="trailing" secondItem="D7y-o7-T45" secondAttribute="trailing" id="Tmr-hL-xrh"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oHK-dQ-hgB" secondAttribute="trailing" constant="20" id="hdk-sX-oHj"/>
                 <constraint firstAttribute="trailing" secondItem="r9z-is-9x3" secondAttribute="trailing" constant="10" id="jRO-3b-plD"/>
                 <constraint firstAttribute="bottom" secondItem="D7y-o7-T45" secondAttribute="bottom" constant="20" id="qVc-iF-fL1"/>
@@ -53,8 +68,12 @@
                 <outlet property="contentImgView" destination="r9z-is-9x3" id="MHY-dd-8xS"/>
                 <outlet property="contentRateLabel" destination="D7y-o7-T45" id="RmU-yg-1c2"/>
                 <outlet property="contentTitleLabel" destination="oHK-dQ-hgB" id="wEF-8f-Pik"/>
+                <outlet property="likeButton" destination="Lag-kv-Q6k" id="BR1-UI-yll"/>
             </connections>
             <point key="canvasLocation" x="225.19083969465649" y="121.83098591549296"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="heart" catalog="system" width="128" height="107"/>
+    </resources>
 </document>
