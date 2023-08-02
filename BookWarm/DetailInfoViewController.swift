@@ -67,6 +67,14 @@ class DetailInfoViewController: UIViewController {
         LikeButton.isSelected = !LikeButton.isSelected
         MovieData.movie[currentIndexPath].like = sender.isSelected
     }
+
+    @IBAction func tappedCancelButton(_ sender: UIButton) {
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
+    }
     
 }
 
