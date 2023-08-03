@@ -16,6 +16,7 @@ class BookShelfCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         setCollectionViewLayout()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,11 +83,12 @@ class BookShelfCollectionViewController: UICollectionViewController {
     
     //MARK: - didSelectItemAt
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //화면 전환  과제를 위해 변경
         let myStoryBoard = UIStoryboard(name: "Main", bundle: .main)
         let vc = myStoryBoard.instantiateViewController(identifier: "DetailInfoViewController") as! DetailInfoViewController
-       
+
         vc.currentIndexPath = indexPath.row
-        
+
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

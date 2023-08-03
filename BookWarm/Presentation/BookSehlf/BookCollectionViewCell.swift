@@ -19,6 +19,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contentRateLabel: UILabel!
     
     var likeState: Bool = false
+
     
     //MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -27,7 +28,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - setCellUI
-    func setCellUI(_ data:Movie){
+    func setCellUI(_ data: Movie){
         contentTitleLabel.text = data.title
         contentTitleLabel.setLabelColorWhite(true, false)
         
