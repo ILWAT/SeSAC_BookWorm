@@ -10,6 +10,7 @@ import UIKit
 class DetailInfoViewController: UIViewController {
     var currentIndexPath = 0
     
+    @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var summaryTextView: UITextView!
     @IBOutlet weak var LikeButton: UIButton!
@@ -18,12 +19,14 @@ class DetailInfoViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ImgView: UIImageView!
     
+    let TextViewPlaceHolder = "여기에 메모를 적어주세요."
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         setUI()
+        
     }
 
     func setUI(){
@@ -56,10 +59,14 @@ class DetailInfoViewController: UIViewController {
         LikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         LikeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         LikeButton.isSelected = data.like
-        
+    
         //핵심 내용 설정
         summaryTextView.text = data.overview
         summaryTextView.isEditable = false
+        
+        //메모 텍스트뷰 딜리게이트 설정
+        memoTextView.delegate = self
+        setTextFieldPlaceHoder(textView: memoTextView)
 
     }
     
@@ -75,6 +82,28 @@ class DetailInfoViewController: UIViewController {
             self.dismiss(animated: true)
         }
     }
+    @IBAction func tappedGesture(_ sender: UITapGestureRecognizer) {
+        self.memoTextView.endEditing(true)
+    }
     
 }
 
+extension DetailInfoViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == TextViewPlaceHolder{
+            textView.text = ""
+            textView.textColor = .black
+        }
+            
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        setTextFieldPlaceHoder(textView: textView)
+    }
+
+    func setTextFieldPlaceHoder(textView: UITextView){
+        if textView.text.isEmpty {
+            textView.text = TextViewPlaceHolder
+            textView.textColor = .gray
+        }
+    }
+}

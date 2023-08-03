@@ -70,7 +70,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="여기에 메모를 해주세요." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cp7-bd-lJL">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cp7-bd-lJL">
                                         <rect key="frame" x="10" y="290" width="373" height="219.66666666666663"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -120,6 +120,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LPW-8c-gqy" secondAttribute="trailing" constant="10" id="2Do-aS-t5e"/>
                             <constraint firstItem="ZT6-3U-pJr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Awn-vl-1k9"/>
@@ -146,6 +147,9 @@
                             <constraint firstItem="LPW-8c-gqy" firstAttribute="leading" secondItem="m8u-j1-XAJ" secondAttribute="trailing" constant="10" id="wob-Ds-EWP"/>
                             <constraint firstItem="vTG-5s-srd" firstAttribute="centerY" secondItem="VVm-F6-TFl" secondAttribute="centerY" id="yu1-Mc-zhf"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="GTv-Bp-fgN" appends="YES" id="urA-Ww-WlB"/>
+                        </connections>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -154,12 +158,18 @@
                         <outlet property="LikeButton" destination="vTG-5s-srd" id="Vme-aN-rXq"/>
                         <outlet property="bottomBackgroundView" destination="ZT6-3U-pJr" id="gF5-Pl-bPe"/>
                         <outlet property="descriptionLabel" destination="aYa-Tw-INK" id="rbw-gq-Q7B"/>
+                        <outlet property="memoTextView" destination="cp7-bd-lJL" id="49f-dS-N6V"/>
                         <outlet property="rateLabel" destination="f8Q-jH-aSS" id="B3O-MY-5or"/>
                         <outlet property="summaryTextView" destination="J4Q-Wu-6KQ" id="SPY-vL-cjw"/>
                         <outlet property="titleLabel" destination="LPW-8c-gqy" id="RbT-38-IrX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GTv-Bp-fgN">
+                    <connections>
+                        <action selector="tappedGesture:" destination="BYZ-38-t0r" id="xET-0g-szI"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2934" y="4"/>
         </scene>
