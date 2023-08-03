@@ -43,6 +43,10 @@ class LookAroundViewController: UIViewController {
         recentLookCollectionView.reloadData()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        print(#function)
+        super.viewWillDisappear(animated)
+    }
     
     func setrecentLookCollectionView(){
         let layout = UICollectionViewFlowLayout()
@@ -107,7 +111,9 @@ extension LookAroundViewController:
         recentLookData.insert(MovieData.movie[indexPath.row], at: 0)
         chekRecentLookDataOverFlow()
         
-        self.present(detailVC, animated: true)
+        self.present(detailVC, animated: true) {
+            
+        }
     }
     
     //MARK: - CollectionView
@@ -126,4 +132,6 @@ extension LookAroundViewController:
 
         return cell
     }
+    
+    
 }

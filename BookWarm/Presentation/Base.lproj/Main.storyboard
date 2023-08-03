@@ -111,6 +111,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gDD-fP-fco" secondAttribute="height" multiplier="1:1" id="tPU-9R-3Kq"/>
                                 </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <buttonConfiguration key="configuration" style="gray"/>
                                 <connections>
                                     <action selector="tappedCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8MI-S7-Uab"/>
@@ -276,11 +277,11 @@
             </objects>
             <point key="canvasLocation" x="1803.8167938931297" y="681.69014084507046"/>
         </scene>
-        <!--Item-->
+        <!--메인-->
         <scene sceneID="Sml-ii-vUF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p7k-aw-RjU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="MoM-Qn-LXR"/>
+                    <tabBarItem key="tabBarItem" title="메인" image="house.fill" catalog="system" id="MoM-Qn-LXR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bzw-B5-g6o">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -295,11 +296,11 @@
             </objects>
             <point key="canvasLocation" x="878.62595419847321" y="3.5211267605633805"/>
         </scene>
-        <!--Item-->
+        <!--둘러보기-->
         <scene sceneID="mJC-8c-i3f">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jJj-42-zYr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7IY-uE-M3P"/>
+                    <tabBarItem key="tabBarItem" title="둘러보기" image="magnifyingglass" catalog="system" id="7IY-uE-M3P"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HNa-6j-Vnj">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -336,6 +337,8 @@
     </scenes>
     <resources>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

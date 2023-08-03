@@ -10,6 +10,8 @@ import UIKit
 class RecentPopularTableViewCell: UITableViewCell {
     static let identifier = "RecentPopularTableViewCell"
 
+    @IBOutlet weak var contentTag2: UILabel!
+    @IBOutlet weak var contentTag: UILabel!
     @IBOutlet weak var contentImageView: UIImageView!
     @IBOutlet weak var contentDescriptionLabel: UILabel!
     @IBOutlet weak var contentTitleLabel: UILabel!
@@ -35,6 +37,16 @@ class RecentPopularTableViewCell: UITableViewCell {
         contentDescriptionLabel.text = "\(data.releaseDate) | \(data.runtime)분"
         contentDescriptionLabel.font = .systemFont(ofSize: 15)
         contentDescriptionLabel.textColor = .systemGray
+        
+        contentTag.setDefaultTagUI()
+        contentTag2.setDefaultTagUI()
+        
+        if data.rate >= 9.0 { setTag(text: "호평작") }
+    }
+    
+    func setTag(text: String){
+        contentTag.text = text
+        contentTag.isHidden = false
     }
     
 }

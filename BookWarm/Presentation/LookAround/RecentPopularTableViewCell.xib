@@ -23,32 +23,54 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42Q-cj-Xq9">
-                        <rect key="frame" x="119.33333333333331" y="41.666666666666664" width="30" height="21"/>
+                        <rect key="frame" x="119.33333333333333" y="42.666666666666664" width="29.666666666666671" height="20.333333333333336"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="간략 정보" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HjD-NG-Ttl">
-                        <rect key="frame" x="119.33333333333331" y="72.666666666666671" width="64" height="21"/>
+                        <rect key="frame" x="119.33333333333333" y="73" width="63.333333333333329" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fXr-gK-2pg">
+                        <rect key="frame" x="119.33333333333334" y="103.33333333333333" width="81.333333333333343" height="20.333333333333329"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="태그1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfc-az-Pm5">
+                                <rect key="frame" x="0.0" y="0.0" width="37" height="20.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="태그2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49g-0L-DsV">
+                                <rect key="frame" x="42.000000000000014" y="0.0" width="39.333333333333329" height="20.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fXr-gK-2pg" secondAttribute="trailing" constant="10" id="0Ri-WQ-4Wg"/>
                     <constraint firstItem="HjD-NG-Ttl" firstAttribute="leading" secondItem="467-1b-mWv" secondAttribute="trailing" constant="10" id="7Fb-Vi-j9A"/>
                     <constraint firstItem="42Q-cj-Xq9" firstAttribute="leading" secondItem="HjD-NG-Ttl" secondAttribute="leading" id="9Pl-EN-Wuo"/>
                     <constraint firstItem="HjD-NG-Ttl" firstAttribute="centerY" secondItem="467-1b-mWv" secondAttribute="centerY" id="Dzx-vs-XnH"/>
                     <constraint firstItem="HjD-NG-Ttl" firstAttribute="top" secondItem="42Q-cj-Xq9" secondAttribute="bottom" constant="10" id="Ij6-4X-xCm"/>
                     <constraint firstItem="467-1b-mWv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="NvF-69-7dz"/>
                     <constraint firstItem="467-1b-mWv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ix9-kN-NAb"/>
+                    <constraint firstItem="fXr-gK-2pg" firstAttribute="leading" secondItem="HjD-NG-Ttl" secondAttribute="leading" id="oio-gi-nV3"/>
                     <constraint firstItem="467-1b-mWv" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.9" id="wdc-kB-8Sb"/>
+                    <constraint firstItem="fXr-gK-2pg" firstAttribute="top" secondItem="HjD-NG-Ttl" secondAttribute="bottom" constant="10" id="x8z-lR-VZO"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="contentDescriptionLabel" destination="HjD-NG-Ttl" id="4xd-x3-N9y"/>
                 <outlet property="contentImageView" destination="467-1b-mWv" id="j2Q-tc-LeT"/>
+                <outlet property="contentTag" destination="yfc-az-Pm5" id="7FM-mi-C03"/>
+                <outlet property="contentTag2" destination="49g-0L-DsV" id="wa6-x3-i77"/>
                 <outlet property="contentTitleLabel" destination="42Q-cj-Xq9" id="37T-QM-dNW"/>
             </connections>
             <point key="canvasLocation" x="-4.5801526717557248" y="63.380281690140848"/>

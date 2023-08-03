@@ -27,4 +27,12 @@ extension UILabel{
 
     }
     
+    func setDefaultTagUI(){
+        self.isHidden = true
+        self.layer.cornerRadius = 10
+        self.layer.shadowOpacity = 5
+        self.layer.shadowRadius = 10
+        self.textColor = .red
+    }
+    
 }
