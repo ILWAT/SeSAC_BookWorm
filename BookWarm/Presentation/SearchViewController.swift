@@ -39,6 +39,10 @@ class SearchViewController: UIViewController {
     @objc func tappedClosedButton(_ sender: UIBarButtonItem){
         dismiss(animated: true)
     }
+    
+    func callRequest(){
+        
+    }
 
 }
 
