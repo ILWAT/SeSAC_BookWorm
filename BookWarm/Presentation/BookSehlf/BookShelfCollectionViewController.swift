@@ -73,7 +73,7 @@ class BookShelfCollectionViewController: UICollectionViewController {
         cell.tag = indexPath.row
         
         //셀 UI 생성
-        cell.setCellUI(MovieData.movie[indexPath.row])
+//        cell.setCellUI(MovieData.movie[indexPath.row])
         
         //셀 생성
         return cell

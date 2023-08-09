@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import Kingfisher
 
 class SearchViewController: UIViewController {
     
@@ -13,12 +16,17 @@ class SearchViewController: UIViewController {
     
     let placeHoderText = "검색할 내용을 입력해주세요"
     
-    var searchResult: [Movie] = []{
-        didSet{
-            collectionView.reloadData()
-        }
-    }
+//    var searchResult: [Movie] = []{
+//        didSet{
+//            collectionView.reloadData()
+//        }
+//    }
+    
+    var searchResult: [Book] = []
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var page = 1
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -27,6 +35,7 @@ class SearchViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(tappedClosedButton(_ :)))
         self.navigationItem.titleView = searchBar
+        
         searchBar.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -40,8 +49,47 @@ class SearchViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    func callRequest(){
+    func callRequest(query: String, page: Int){
+        let query2 = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = "https://dapi.kakao.com/v3/search/book?query=\(query2)&page=\(page)"
         
+        let header: HTTPHeaders = ["Authorization" : "KakaoAK \(APIKeys.kakaoAPIKey)"]
+        
+        AF.request(url, method: .get, headers: header).validate().responseJSON{ response in
+            switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                print(json)
+                
+                for item in json["documents"].arrayValue{
+                    var authorArray: [String] = []
+                    for item2 in item["authors"].arrayValue{
+                        authorArray.append(item2.stringValue)
+                    }
+                    let contents = item["contents"].stringValue
+                    let datetime = item["datetime"].stringValue
+                    let isbn = item["isbn"].stringValue
+                    let price = item["price"].intValue
+                    let publisher = item["publisher"].stringValue
+                    let salePrice = item["sale_price"].intValue
+                    let status = item["status"].stringValue
+                    let thumbnail = item["thumbnail"].stringValue
+                    let title = item["title"].stringValue
+                    let url = item["url"].stringValue
+                    let translator = item["translator"].stringValue
+                    
+                    self.searchResult.append(Book(author: authorArray, contents: contents, datetime: datetime, isbn: isbn, price: price, publisher: publisher, salePrice: salePrice, thumbnail: thumbnail, url: url, title: title, status: status, translator: translator, like: false))
+                }
+                
+                print(self.searchResult)
+                
+                self.collectionView.reloadData()
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
     }
 
 }
@@ -98,6 +146,7 @@ extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, U
         let vc = myStoryBoard.instantiateViewController(identifier: "DetailInfoViewController") as! DetailInfoViewController
 
         vc.currentIndexPath = indexPath.row
+        vc.bookData = searchResult[indexPath.row]
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -107,23 +156,18 @@ extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, U
         searchBar.showsCancelButton = true
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let inputText = searchBar.text else {return}
-        searchResult.removeAll()
-        for element in MovieData.movie{
-            if element.title.contains(inputText) {
-                searchResult.append(element)
-            }
-        }
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        guard let inputText = searchBar.text else {return}
+//        searchResult.removeAll()
+//        callRequest(query: inputText, page: page)
+//    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let inputText = searchBar.text else {return}
-        for element in MovieData.movie{
-            if element.title.contains(inputText) {
-                searchResult.append(element)
-            }
-        }
+        searchResult.removeAll()
+        callRequest(query: inputText, page: page)
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResult.removeAll()
         searchBar.text = ""

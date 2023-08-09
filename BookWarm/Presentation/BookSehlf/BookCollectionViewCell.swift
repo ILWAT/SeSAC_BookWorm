@@ -28,14 +28,15 @@ class BookCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - setCellUI
-    func setCellUI(_ data: Movie){
+    func setCellUI(_ data: Book){
         contentTitleLabel.text = data.title
         contentTitleLabel.setLabelColorWhite(true, false)
         
-        contentImgView.image = data.image ?? UIImage(named: "Star")
+        let url = URL(string: data.thumbnail)
+        contentImgView.kf.setImage(with: url)
         
         contentRateLabel.setLabelColorWhite(false, true)
-        contentRateLabel.text = "\(data.rate)"
+        contentRateLabel.text = "\(data.contents)"
         
         //button의 isSelected를 활용하는 방식
         likeButton.setImage(UIImage(systemName: "heart"), for: .normal)

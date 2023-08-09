@@ -22,14 +22,14 @@
                                     <constraint firstAttribute="width" secondItem="m8u-j1-XAJ" secondAttribute="height" multiplier="240:361" id="0Yu-7v-eYI"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPW-8c-gqy">
-                                <rect key="frame" x="133.33333333333334" y="69" width="29.666666666666657" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPW-8c-gqy">
+                                <rect key="frame" x="133.33333333333334" y="69" width="29.666666666666657" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="부가정보" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYa-Tw-INK">
-                                <rect key="frame" x="133.33333333333334" y="100" width="59" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="부가정보" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYa-Tw-INK">
+                                <rect key="frame" x="133.33333333333334" y="99.333333333333329" width="59" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -122,10 +122,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LPW-8c-gqy" secondAttribute="trailing" constant="10" id="2Do-aS-t5e"/>
                             <constraint firstItem="ZT6-3U-pJr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Awn-vl-1k9"/>
                             <constraint firstItem="aYa-Tw-INK" firstAttribute="leading" secondItem="LPW-8c-gqy" secondAttribute="leading" id="CR0-Um-0UD"/>
                             <constraint firstItem="LPW-8c-gqy" firstAttribute="top" secondItem="m8u-j1-XAJ" secondAttribute="top" id="J66-OQ-Odp"/>
+                            <constraint firstItem="vTG-5s-srd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f8Q-jH-aSS" secondAttribute="trailing" constant="5" id="Jbf-mg-apv"/>
+                            <constraint firstItem="gDD-fP-fco" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LPW-8c-gqy" secondAttribute="trailing" constant="5" id="OK7-sh-H8i"/>
                             <constraint firstItem="VVm-F6-TFl" firstAttribute="height" secondItem="m8u-j1-XAJ" secondAttribute="height" multiplier="0.15" id="Qml-0e-mGi"/>
                             <constraint firstItem="f8Q-jH-aSS" firstAttribute="centerY" secondItem="VVm-F6-TFl" secondAttribute="centerY" id="SX1-ZG-2yx"/>
                             <constraint firstItem="gDD-fP-fco" firstAttribute="top" secondItem="m8u-j1-XAJ" secondAttribute="top" id="VI9-hN-hs9"/>
@@ -136,6 +137,7 @@
                             <constraint firstItem="f8Q-jH-aSS" firstAttribute="leading" secondItem="VVm-F6-TFl" secondAttribute="trailing" constant="5" id="dB7-3j-bpU"/>
                             <constraint firstItem="gDD-fP-fco" firstAttribute="height" secondItem="m8u-j1-XAJ" secondAttribute="height" multiplier="0.2" id="e9a-Bx-DPb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aYa-Tw-INK" secondAttribute="trailing" constant="10" id="gt5-yf-yZm"/>
+                            <constraint firstItem="VVm-F6-TFl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aYa-Tw-INK" secondAttribute="bottom" constant="5" id="hxd-aN-nUQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZT6-3U-pJr" secondAttribute="trailing" id="i6s-88-E9I"/>
                             <constraint firstItem="m8u-j1-XAJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="iqK-Ss-pT5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vTG-5s-srd" secondAttribute="trailing" constant="10" id="kGL-q1-UUa"/>
