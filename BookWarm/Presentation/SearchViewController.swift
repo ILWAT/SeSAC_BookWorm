@@ -23,10 +23,12 @@ class SearchViewController: UIViewController {
 //    }
     
     var searchResult: [Book] = []
+    var isEnd = false
+    var page = 1
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var page = 1
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -39,6 +41,7 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
         
         setCollectionViewLayout()
     }
@@ -51,7 +54,7 @@ class SearchViewController: UIViewController {
     
     func callRequest(query: String, page: Int){
         let query2 = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = "https://dapi.kakao.com/v3/search/book?query=\(query2)&page=\(page)"
+        let url = "https://dapi.kakao.com/v3/search/book?query=\(query2)&page=\(page)&size=30"
         
         let header: HTTPHeaders = ["Authorization" : "KakaoAK \(APIKeys.kakaoAPIKey)"]
         
@@ -60,6 +63,8 @@ class SearchViewController: UIViewController {
             case .success(let value):
                 let json = JSON(value)
                 print(json)
+                
+                self.isEnd = json["meta"]["is_end"].boolValue
                 
                 for item in json["documents"].arrayValue{
                     var authorArray: [String] = []
@@ -95,7 +100,7 @@ class SearchViewController: UIViewController {
 }
 
 
-extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
     
     //MARK: - setCollectionViewLayout
     func setCollectionViewLayout(){
@@ -164,6 +169,7 @@ extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, U
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let inputText = searchBar.text else {return}
+        page = 1
         searchResult.removeAll()
         callRequest(query: inputText, page: page)
     }
@@ -172,4 +178,21 @@ extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, U
         searchResult.removeAll()
         searchBar.text = ""
     }
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            print(indexPath)
+            if searchResult.count-2 == indexPath.row && page<50 && !isEnd{
+                page += 1
+                callRequest(query: searchBar.text!, page: page)
+                print("prefecth")
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        print("===취소")
+    }
+    
+    
 }
