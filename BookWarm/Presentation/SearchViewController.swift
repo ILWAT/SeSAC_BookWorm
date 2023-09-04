@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Kingfisher
+import RealmSwift
 
 class SearchViewController: UIViewController {
     
@@ -23,6 +24,10 @@ class SearchViewController: UIViewController {
 //    }
     
     var searchResult: [Book] = []
+    
+    //Realm으로 대체 해보기(과제)
+    var task: Results<RealmBookModel>!
+    
     var isEnd = false
     var page = 1
     
@@ -44,6 +49,12 @@ class SearchViewController: UIViewController {
         collectionView.prefetchDataSource = self
         
         setCollectionViewLayout()
+        
+        //Realm Code 추가
+        let realm = try! Realm()
+        
+        task = try! realm.objects(RealmBookModel.self).sorted(byKeyPath: "title")
+        
     }
     
     
@@ -57,6 +68,8 @@ class SearchViewController: UIViewController {
         let url = "https://dapi.kakao.com/v3/search/book?query=\(query2)&page=\(page)&size=30"
         
         let header: HTTPHeaders = ["Authorization" : "KakaoAK \(APIKeys.kakaoAPIKey)"]
+        
+        let realm = try! Realm()
         
         AF.request(url, method: .get, headers: header).validate().responseJSON{ response in
             switch response.result{
@@ -84,9 +97,30 @@ class SearchViewController: UIViewController {
                     let translator = item["translator"].stringValue
                     
                     self.searchResult.append(Book(author: authorArray, contents: contents, datetime: datetime, isbn: isbn, price: price, publisher: publisher, salePrice: salePrice, thumbnail: thumbnail, url: url, title: title, status: status, translator: translator, like: false))
+                    
+                    
+                    //DB에 검색 결과 저장하기
+                    try! realm.write{
+                        //작가 데이터 형식에 맞춰 변환
+                        var authorList = List<Author>()
+                        for author in authorArray{
+                            let author = Author(name: author)
+                            authorList.append(author)
+                        }
+                        
+                        //recod 생성
+                        let realmBookModel = RealmBookModel(author: authorList, thumnail: thumbnail, title: title, publisher: publisher, salePrice: salePrice, url: url, contents: contents, isbn: isbn, datetime: datetime)
+                        
+                        //table에 recod 추가
+                        realm.add(realmBookModel)
+                        
+                        print("realm Add Success")
+                    }
+                    
                 }
                 
-                print(self.searchResult)
+//                print(self.searchResult)
+                
                 
                 self.collectionView.reloadData()
                 
@@ -171,11 +205,13 @@ extension SearchViewController: UISearchBarDelegate, UICollectionViewDelegate, U
         guard let inputText = searchBar.text else {return}
         page = 1
         searchResult.removeAll()
+        task = nil
         callRequest(query: inputText, page: page)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResult.removeAll()
+        task = nil
         searchBar.text = ""
     }
     

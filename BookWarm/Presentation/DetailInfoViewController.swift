@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class DetailInfoViewController: UIViewController {
     var currentIndexPath = 0
@@ -22,25 +23,27 @@ class DetailInfoViewController: UIViewController {
     
     let TextViewPlaceHolder = "여기에 메모를 적어주세요."
     
-    var bookData: Book? = nil
+    var bookData: Book! = nil
+    var bookRealmData: RealmBookModel! = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if bookData != nil {
+        if let bookData {
             setUI_Book()
-        } else {
+        } else if let bookRealmData {
             setUI()
         }
+        
         
     }
 
     func setUI(){
-        let data: Movie = MovieData.movie[currentIndexPath]
+//        let data: Movie = MovieData.movie[currentIndexPath]
         
         //네비게이션 타이틀 설정
-        self.navigationController?.title = data.title
+        self.title = bookRealmData.title
         
         //하단 백그라운드 뷰 모서리 둥글게 설정
         bottomBackgroundView.layer.cornerRadius = 10
@@ -48,27 +51,29 @@ class DetailInfoViewController: UIViewController {
         bottomBackgroundView.layer.borderColor = UIColor.black.cgColor
         
         //타이틀라벨 설정
-        titleLabel.text = data.title
+        titleLabel.text = bookRealmData.title
         titleLabel.font = .boldSystemFont(ofSize: 20)
         
         //이미지 설정
-        ImgView.image = data.image ?? UIImage().withTintColor(.systemGray)
+//        ImgView.image = data.image ?? UIImage().withTintColor(.systemGray)
+        let url = URL(string: bookRealmData.thumnail)
+        ImgView.kf.setImage(with: url)
         
         //부가정보라벨 설정
-        descriptionLabel.text = "\(data.runtime)분 | \(data.releaseDate)"
+        descriptionLabel.text = bookRealmData.publisher//"\(data.runtime)분 | \(data.releaseDate)"
         descriptionLabel.font = .systemFont(ofSize: 15)
         
         //별점 라벨 설정
-        rateLabel.text = "\(data.rate)"
+        rateLabel.text = "\(bookRealmData.salePrice)" //"\(data.rate)"
         rateLabel.font = .systemFont(ofSize: 15)
         
         //버튼 설정
         LikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         LikeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        LikeButton.isSelected = data.like
+        LikeButton.isSelected = bookRealmData.like
     
         //핵심 내용 설정
-        summaryTextView.text = data.overview
+        summaryTextView.text = bookRealmData.contents
         summaryTextView.isEditable = false
         
         //메모 텍스트뷰 딜리게이트 설정
@@ -80,39 +85,39 @@ class DetailInfoViewController: UIViewController {
     func setUI_Book(){
         guard let book = bookData else { return }
         //네비게이션 타이틀 설정
-        self.navigationController?.title = book.title
-        
+        self.title = book.title
+
         //하단 백그라운드 뷰 모서리 둥글게 설정
         bottomBackgroundView.layer.cornerRadius = 10
         bottomBackgroundView.layer.borderWidth = 1
         bottomBackgroundView.layer.borderColor = UIColor.black.cgColor
-        
+
         //타이틀라벨 설정
         titleLabel.text = book.title
         titleLabel.font = .boldSystemFont(ofSize: 20)
         titleLabel.adjustsFontSizeToFitWidth = true
-        
+
         //이미지 설정
         let imageURL = URL(string: book.thumbnail)
         ImgView.kf.setImage(with: imageURL)
-        
+
         //부가정보라벨 설정
         descriptionLabel.text = "출판사:\(book.publisher) | 판매 가격: \(book.salePrice)원"
         descriptionLabel.font = .systemFont(ofSize: 15)
-        
+
         //별점 라벨 설정
         rateLabel.text = "\(book.datetime)"
         rateLabel.font = .systemFont(ofSize: 15)
-        
+
         //버튼 설정
         LikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         LikeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         LikeButton.isSelected = book.like
-    
+
         //핵심 내용 설정
         summaryTextView.text = book.contents
         summaryTextView.isEditable = false
-        
+
         //메모 텍스트뷰 딜리게이트 설정
         memoTextView.delegate = self
         setTextFieldPlaceHoder(textView: memoTextView)

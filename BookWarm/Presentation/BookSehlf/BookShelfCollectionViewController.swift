@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BookShelfCollectionViewController: UICollectionViewController {
     //MARK: - Properties
-    
+    var searchBookData: Results<RealmBookModel>!
     
     //MARK: - properties
     override func viewDidLoad() {
@@ -20,6 +21,18 @@ class BookShelfCollectionViewController: UICollectionViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let realm = try! Realm()
+        
+        searchBookData = try! realm.objects(RealmBookModel.self).sorted(byKeyPath: "title")
+        
+//        for item in searchBookData{
+//            var authorArray: [String] = []
+//            for author in item.author{
+//                authorArray.append(author.name)
+//            }
+//            self.bookData.append(Book(author: authorArray, contents: item.contents, datetime: item.datetime, isbn: item.isbn, price: item.salePrice, publisher: item.publisher, salePrice: item.salePrice, thumbnail: item.thumnail, url: item.url, title: item.title, status: item.status, translator: item.translator, like: item.like))
+//        }
+        
         collectionView.reloadData()
     }
     
@@ -54,7 +67,7 @@ class BookShelfCollectionViewController: UICollectionViewController {
     
     //MARK: - numberOfItemsInSection
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return MovieData.movie.count
+        return searchBookData.count //MovieData.movie.count
     }
 
 
@@ -68,12 +81,13 @@ class BookShelfCollectionViewController: UICollectionViewController {
         self.collectionView.register(nib, forCellWithReuseIdentifier: BookCollectionViewCell.identifier)
         
         //재사용 셀 인스턴스 생성
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookCollectionViewCell.identifier, for: indexPath) as! BookCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookCollectionViewCell.identifier, for: indexPath) as? BookCollectionViewCell else { return UICollectionViewCell() }
         
         cell.tag = indexPath.row
         
         //셀 UI 생성
 //        cell.setCellUI(MovieData.movie[indexPath.row])
+        cell.setCellUI(searchBookData[indexPath.row])
         
         //셀 생성
         return cell
@@ -87,7 +101,9 @@ class BookShelfCollectionViewController: UICollectionViewController {
         let myStoryBoard = UIStoryboard(name: "Main", bundle: .main)
         let vc = myStoryBoard.instantiateViewController(identifier: "DetailInfoViewController") as! DetailInfoViewController
 
-        vc.currentIndexPath = indexPath.row
+//        vc.currentIndexPath = indexPath.row
+        vc.bookRealmData = searchBookData[indexPath.row]
+
 
         self.navigationController?.pushViewController(vc, animated: true)
     }

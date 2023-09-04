@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BookCollectionViewCell: UICollectionViewCell {
     //MARK: - Properties
@@ -33,6 +34,26 @@ class BookCollectionViewCell: UICollectionViewCell {
         contentTitleLabel.setLabelColorWhite(true, false)
         
         let url = URL(string: data.thumbnail)
+        contentImgView.kf.setImage(with: url)
+        
+        contentRateLabel.setLabelColorWhite(false, true)
+        contentRateLabel.text = "\(data.contents)"
+        
+        //button의 isSelected를 활용하는 방식
+        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        likeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        likeButton.isSelected = data.like
+        
+        self.backgroundColor = colorSet.randomElement() ?? .clear
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+    }
+    
+    func setCellUI(_ data: RealmBookModel){
+        contentTitleLabel.text = data.title
+        contentTitleLabel.setLabelColorWhite(true, false)
+        
+        let url = URL(string: data.thumnail)
         contentImgView.kf.setImage(with: url)
         
         contentRateLabel.setLabelColorWhite(false, true)
