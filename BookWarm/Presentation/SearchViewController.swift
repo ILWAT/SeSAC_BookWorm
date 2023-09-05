@@ -111,6 +111,13 @@ class SearchViewController: UIViewController {
                         //recod 생성
                         let realmBookModel = RealmBookModel(author: authorList, thumnail: thumbnail, title: title, publisher: publisher, salePrice: salePrice, url: url, contents: contents, isbn: isbn, datetime: datetime)
                         
+                        DispatchQueue.global().async {
+                            guard let url = URL(string: realmBookModel.thumnail) else {return}
+                            guard let data = try? Data(contentsOf: url) else {return}
+                            
+                            self.saveImageToDocument(fileName: "\(realmBookModel.title).jpg", image: UIImage(data: data)!)
+                        }
+                        
                         //table에 recod 추가
                         realm.add(realmBookModel)
                         

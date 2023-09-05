@@ -23,19 +23,29 @@ class DetailInfoViewController: UIViewController {
     
     let TextViewPlaceHolder = "여기에 메모를 적어주세요."
     
-    var bookData: Book! = nil
-    var bookRealmData: RealmBookModel! = nil
+    var bookData: Book!
+    var bookRealmData: RealmBookModel!
     
+    var realm: Realm!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do{
+            try realm = Realm()
+            print(realm.configuration.fileURL)
+        } catch let error{
+            print("Failed Create Realm",error)
+        }
+        
+        print(bookData, bookRealmData)
         
         if let bookData {
             setUI_Book()
         } else if let bookRealmData {
             setUI()
         }
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(editButtonClicked))
         
     }
 
@@ -60,11 +70,11 @@ class DetailInfoViewController: UIViewController {
         ImgView.kf.setImage(with: url)
         
         //부가정보라벨 설정
-        descriptionLabel.text = bookRealmData.publisher//"\(data.runtime)분 | \(data.releaseDate)"
+        descriptionLabel.text = "판매 가격: \(bookRealmData.salePrice)원" //"\(data.runtime)분 | \(data.releaseDate)"
         descriptionLabel.font = .systemFont(ofSize: 15)
         
         //별점 라벨 설정
-        rateLabel.text = "\(bookRealmData.salePrice)" //"\(data.rate)"
+        rateLabel.text = "" //"\(data.rate)"
         rateLabel.font = .systemFont(ofSize: 15)
         
         //버튼 설정
@@ -129,8 +139,18 @@ class DetailInfoViewController: UIViewController {
         if bookData != nil {
             bookData?.like = LikeButton.isSelected
         } else {
-            MovieData.movie[currentIndexPath].like = sender.isSelected
+            
+            let newRealmData = RealmBookModel(value: ["_id": bookRealmData._id, "like": LikeButton.isSelected])
+            
+            do{
+                try realm.write({
+                    realm.add(newRealmData, update: .modified)
+                })
+            } catch let error{
+                print("Failed Update",error)
+            }
         }
+        
         
     }
 
@@ -141,8 +161,36 @@ class DetailInfoViewController: UIViewController {
             self.dismiss(animated: true)
         }
     }
+    
     @IBAction func tappedGesture(_ sender: UITapGestureRecognizer) {
         self.memoTextView.endEditing(true)
+    }
+    
+    @objc func editButtonClicked(_ sender: UIBarButtonItem){
+        updateMemoRealmData()
+        
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
+    }
+    
+    //MARK: - Helper
+    func updateMemoRealmData(){
+        guard let bookRealmData else {return}
+        guard let inputText = memoTextView.text else {return}
+        
+        let updateRealmData = RealmBookModel(value: ["_id": bookRealmData._id, "memo": inputText])
+        print(bookRealmData)
+        
+        do{
+            try realm.write{
+                realm.add(updateRealmData, update: .modified)
+            }
+        } catch let error{
+            print("Failed Update",error)
+        }
     }
     
 }

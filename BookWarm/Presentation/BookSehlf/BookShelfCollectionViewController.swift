@@ -103,6 +103,8 @@ class BookShelfCollectionViewController: UICollectionViewController {
 
 //        vc.currentIndexPath = indexPath.row
         vc.bookRealmData = searchBookData[indexPath.row]
+        
+        let test = searchBookData[indexPath.row]
 
 
         self.navigationController?.pushViewController(vc, animated: true)

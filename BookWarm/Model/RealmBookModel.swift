@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class RealmBookModel: Object{
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var author: List<Author>
     @Persisted var thumnail: String
     @Persisted var title: String
@@ -22,6 +22,7 @@ class RealmBookModel: Object{
     @Persisted var contents: String
     @Persisted var isbn: String
     @Persisted var datetime: String
+    @Persisted var memo: String?
     
     convenience init(author: List<Author>, thumnail: String, title: String, publisher: String, salePrice: Int, url: String, status: String? = nil, translator: String? = nil, contents: String, isbn: String, datetime: String) {
         self.init()
@@ -38,6 +39,7 @@ class RealmBookModel: Object{
         self.isbn = isbn
         self.datetime = datetime
         self.like = false
+        self.memo = nil
     }
 }
 
