@@ -34,6 +34,7 @@
 		DE8F49602AA61E520028C055 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DE8F495F2AA61E520028C055 /* RealmSwift */; };
 		DE8F49632AA625A30028C055 /* RealmBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F49622AA625A30028C055 /* RealmBookModel.swift */; };
 		DE8F496A2AA78B000028C055 /* FileManger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F49692AA78B000028C055 /* FileManger+Extension.swift */; };
+		DE8F496E2AA86E9C0028C055 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F496D2AA86E9C0028C055 /* RealmManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		DE8261EA2A7A64DE006B6AF8 /* RecentPopularTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentPopularTableViewCell.xib; sourceTree = "<group>"; };
 		DE8F49622AA625A30028C055 /* RealmBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBookModel.swift; sourceTree = "<group>"; };
 		DE8F49692AA78B000028C055 /* FileManger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManger+Extension.swift"; sourceTree = "<group>"; };
+		DE8F496D2AA86E9C0028C055 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +100,7 @@
 		DE0936692A779BBF00FDF0D1 /* BookWarm */ = {
 			isa = PBXGroup;
 			children = (
-				DE8F49682AA78AAB0028C055 /* Extension */,
+				DE8F49682AA78AAB0028C055 /* Helper */,
 				DE7407732A8384C9008CC62A /* APIKeys.swift */,
 				DE8261F22A7B96D7006B6AF8 /* Resources */,
 				DE8261F12A7B96C2006B6AF8 /* Model */,
@@ -173,12 +175,13 @@
 			path = BookSehlf;
 			sourceTree = "<group>";
 		};
-		DE8F49682AA78AAB0028C055 /* Extension */ = {
+		DE8F49682AA78AAB0028C055 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				DE8F49692AA78B000028C055 /* FileManger+Extension.swift */,
+				DE8F496D2AA86E9C0028C055 /* RealmManager.swift */,
 			);
-			path = Extension;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +281,7 @@
 				DE09367F2A779C5800FDF0D1 /* BookShelfCollectionViewController.swift in Sources */,
 				DE7407742A8384C9008CC62A /* APIKeys.swift in Sources */,
 				DE8261E72A7A4B0A006B6AF8 /* RecentLookCollectionViewCell.swift in Sources */,
+				DE8F496E2AA86E9C0028C055 /* RealmManager.swift in Sources */,
 				DE0936822A779C7700FDF0D1 /* BookCollectionViewCell.swift in Sources */,
 				DE8261E42A7A49B4006B6AF8 /* LookAroundViewController.swift in Sources */,
 				DE8F496A2AA78B000028C055 /* FileManger+Extension.swift in Sources */,

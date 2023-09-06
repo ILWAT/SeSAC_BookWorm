@@ -26,19 +26,10 @@ class DetailInfoViewController: UIViewController {
     var bookData: Book!
     var bookRealmData: RealmBookModel!
     
-    var realm: Realm!
+    let realm = RealmMananger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        do{
-            try realm = Realm()
-            print(realm.configuration.fileURL)
-        } catch let error{
-            print("Failed Create Realm",error)
-        }
-        
-        print(bookData, bookRealmData)
         
         if let bookData {
             setUI_Book()
@@ -88,7 +79,12 @@ class DetailInfoViewController: UIViewController {
         
         //메모 텍스트뷰 딜리게이트 설정
         memoTextView.delegate = self
-        setTextFieldPlaceHoder(textView: memoTextView)
+        if let memoText = bookRealmData.memo {
+            memoTextView.text = memoText
+        } else {
+            setTextFieldPlaceHoder(textView: memoTextView)
+        }
+        
 
     }
     
@@ -136,19 +132,12 @@ class DetailInfoViewController: UIViewController {
     
     @IBAction func tappedLikeButton(_ sender: UIButton) {
         LikeButton.isSelected = !LikeButton.isSelected
+        
         if bookData != nil {
             bookData?.like = LikeButton.isSelected
         } else {
             
-            let newRealmData = RealmBookModel(value: ["_id": bookRealmData._id, "like": LikeButton.isSelected])
-            
-            do{
-                try realm.write({
-                    realm.add(newRealmData, update: .modified)
-                })
-            } catch let error{
-                print("Failed Update",error)
-            }
+            realm.updtaeRealmLikeData(bookRealmData: bookRealmData, isSelected: LikeButton.isSelected)
         }
         
         
@@ -167,7 +156,10 @@ class DetailInfoViewController: UIViewController {
     }
     
     @objc func editButtonClicked(_ sender: UIBarButtonItem){
-        updateMemoRealmData()
+        guard let bookRealmData else {return}
+        guard let inputText = memoTextView.text else {return}
+        
+        realm.updateMemoRealmData(bookRealmData: bookRealmData, memo: inputText)
         
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
@@ -176,20 +168,16 @@ class DetailInfoViewController: UIViewController {
         }
     }
     
-    //MARK: - Helper
-    func updateMemoRealmData(){
-        guard let bookRealmData else {return}
-        guard let inputText = memoTextView.text else {return}
+    @IBAction func tappedDeleteButton(_ sender: UIButton) {
         
-        let updateRealmData = RealmBookModel(value: ["_id": bookRealmData._id, "memo": inputText])
-        print(bookRealmData)
+        removeImageInDocument(fileName: "\(bookRealmData.title).jpg")
         
-        do{
-            try realm.write{
-                realm.add(updateRealmData, update: .modified)
-            }
-        } catch let error{
-            print("Failed Update",error)
+        realm.deleteRealm(bookRealmData: bookRealmData)
+        
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
         }
     }
     

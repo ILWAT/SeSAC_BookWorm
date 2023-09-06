@@ -62,6 +62,7 @@ class SearchViewController: UIViewController {
     @objc func tappedClosedButton(_ sender: UIBarButtonItem){
         dismiss(animated: true)
     }
+
     
     func callRequest(query: String, page: Int){
         let query2 = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -96,41 +97,22 @@ class SearchViewController: UIViewController {
                     let url = item["url"].stringValue
                     let translator = item["translator"].stringValue
                     
-                    self.searchResult.append(Book(author: authorArray, contents: contents, datetime: datetime, isbn: isbn, price: price, publisher: publisher, salePrice: salePrice, thumbnail: thumbnail, url: url, title: title, status: status, translator: translator, like: false))
+                    let bookData = Book(author: authorArray, contents: contents, datetime: datetime, isbn: isbn, price: price, publisher: publisher, salePrice: salePrice, thumbnail: thumbnail, url: url, title: title, status: status, translator: translator, like: false)
+                    
+                    self.searchResult.append(bookData)
+                    
+                    //print(self.searchResult)
                     
                     
-                    //DB에 검색 결과 저장하기
-                    try! realm.write{
-                        //작가 데이터 형식에 맞춰 변환
-                        var authorList = List<Author>()
-                        for author in authorArray{
-                            let author = Author(name: author)
-                            authorList.append(author)
-                        }
+                    DispatchQueue.global().async {
+                        guard let url = URL(string: bookData.thumbnail) else {return}
+                        guard let data = try? Data(contentsOf: url) else {return}
                         
-                        //recod 생성
-                        let realmBookModel = RealmBookModel(author: authorList, thumnail: thumbnail, title: title, publisher: publisher, salePrice: salePrice, url: url, contents: contents, isbn: isbn, datetime: datetime)
-                        
-                        DispatchQueue.global().async {
-                            guard let url = URL(string: realmBookModel.thumnail) else {return}
-                            guard let data = try? Data(contentsOf: url) else {return}
-                            
-                            self.saveImageToDocument(fileName: "\(realmBookModel.title).jpg", image: UIImage(data: data)!)
-                        }
-                        
-                        //table에 recod 추가
-                        realm.add(realmBookModel)
-                        
-                        print("realm Add Success")
+                        self.saveImageToDocument(fileName: "\(bookData.title).jpg", image: UIImage(data: data)!)
                     }
                     
+                    self.collectionView.reloadData()
                 }
-                
-//                print(self.searchResult)
-                
-                
-                self.collectionView.reloadData()
-                
             case .failure(let error):
                 print(error)
             }

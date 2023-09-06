@@ -117,6 +117,15 @@
                                     <action selector="tappedCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8MI-S7-Uab"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwt-Nm-Yti">
+                                <rect key="frame" x="305" y="69" width="34" height="34"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="tappedDeleteButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jl5-7b-X89"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -126,16 +135,18 @@
                             <constraint firstItem="aYa-Tw-INK" firstAttribute="leading" secondItem="LPW-8c-gqy" secondAttribute="leading" id="CR0-Um-0UD"/>
                             <constraint firstItem="LPW-8c-gqy" firstAttribute="top" secondItem="m8u-j1-XAJ" secondAttribute="top" id="J66-OQ-Odp"/>
                             <constraint firstItem="vTG-5s-srd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f8Q-jH-aSS" secondAttribute="trailing" constant="5" id="Jbf-mg-apv"/>
-                            <constraint firstItem="gDD-fP-fco" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LPW-8c-gqy" secondAttribute="trailing" constant="5" id="OK7-sh-H8i"/>
                             <constraint firstItem="VVm-F6-TFl" firstAttribute="height" secondItem="m8u-j1-XAJ" secondAttribute="height" multiplier="0.15" id="Qml-0e-mGi"/>
+                            <constraint firstItem="qwt-Nm-Yti" firstAttribute="bottom" secondItem="gDD-fP-fco" secondAttribute="bottom" id="Qw3-zo-3fX"/>
                             <constraint firstItem="f8Q-jH-aSS" firstAttribute="centerY" secondItem="VVm-F6-TFl" secondAttribute="centerY" id="SX1-ZG-2yx"/>
                             <constraint firstItem="gDD-fP-fco" firstAttribute="top" secondItem="m8u-j1-XAJ" secondAttribute="top" id="VI9-hN-hs9"/>
                             <constraint firstItem="VVm-F6-TFl" firstAttribute="leading" secondItem="LPW-8c-gqy" secondAttribute="leading" id="XH6-0f-B5w"/>
                             <constraint firstItem="vTG-5s-srd" firstAttribute="height" secondItem="VVm-F6-TFl" secondAttribute="height" id="XuX-GN-gnF"/>
+                            <constraint firstItem="gDD-fP-fco" firstAttribute="leading" secondItem="qwt-Nm-Yti" secondAttribute="trailing" constant="10" id="YQb-Cp-b14"/>
                             <constraint firstItem="ZT6-3U-pJr" firstAttribute="top" secondItem="VVm-F6-TFl" secondAttribute="bottom" constant="10" id="Yjd-BM-Qxz"/>
                             <constraint firstItem="ZT6-3U-pJr" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="YpQ-3v-wLX"/>
                             <constraint firstItem="f8Q-jH-aSS" firstAttribute="leading" secondItem="VVm-F6-TFl" secondAttribute="trailing" constant="5" id="dB7-3j-bpU"/>
                             <constraint firstItem="gDD-fP-fco" firstAttribute="height" secondItem="m8u-j1-XAJ" secondAttribute="height" multiplier="0.2" id="e9a-Bx-DPb"/>
+                            <constraint firstItem="qwt-Nm-Yti" firstAttribute="width" secondItem="gDD-fP-fco" secondAttribute="height" multiplier="1:1" id="gco-2x-25N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aYa-Tw-INK" secondAttribute="trailing" constant="10" id="gt5-yf-yZm"/>
                             <constraint firstItem="VVm-F6-TFl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aYa-Tw-INK" secondAttribute="bottom" constant="5" id="hxd-aN-nUQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZT6-3U-pJr" secondAttribute="trailing" id="i6s-88-E9I"/>
@@ -144,10 +155,12 @@
                             <constraint firstItem="aYa-Tw-INK" firstAttribute="top" secondItem="LPW-8c-gqy" secondAttribute="bottom" constant="10" id="pPq-Lz-pgM"/>
                             <constraint firstItem="VVm-F6-TFl" firstAttribute="bottom" secondItem="m8u-j1-XAJ" secondAttribute="bottom" id="pnF-lS-DSA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gDD-fP-fco" secondAttribute="trailing" constant="10" id="s0P-Fw-OPx"/>
+                            <constraint firstItem="qwt-Nm-Yti" firstAttribute="top" secondItem="gDD-fP-fco" secondAttribute="top" id="uoG-Ra-9pT"/>
                             <constraint firstItem="m8u-j1-XAJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wSQ-2L-3Tw"/>
                             <constraint firstItem="m8u-j1-XAJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="wed-xv-hkq"/>
                             <constraint firstItem="LPW-8c-gqy" firstAttribute="leading" secondItem="m8u-j1-XAJ" secondAttribute="trailing" constant="10" id="wob-Ds-EWP"/>
                             <constraint firstItem="vTG-5s-srd" firstAttribute="centerY" secondItem="VVm-F6-TFl" secondAttribute="centerY" id="yu1-Mc-zhf"/>
+                            <constraint firstItem="qwt-Nm-Yti" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LPW-8c-gqy" secondAttribute="trailing" constant="10" id="zI1-O1-Csc"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="GTv-Bp-fgN" appends="YES" id="urA-Ww-WlB"/>
@@ -374,6 +387,7 @@
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
