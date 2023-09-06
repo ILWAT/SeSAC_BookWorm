@@ -12,9 +12,19 @@ import UIKit
 class RealmMananger{
     private var realm: Realm!
     
-    init() {
+    init(){
         do{
-            try realm = Realm()
+            realm = try Realm()
+        } catch {
+            print(error)
+        }
+        checkSchemaVersion()
+    }
+    
+    func checkSchemaVersion(){
+        do{
+            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
+            print("SchemaVersion: \(version)")
         } catch {
             print(error)
         }
@@ -35,7 +45,7 @@ class RealmMananger{
                 }
                 
                 //recod 생성
-                let realmBookModel = RealmBookModel(author: authorList, thumnail: bookData.thumbnail, title: bookData.title, publisher: bookData.publisher, salePrice: bookData.salePrice, url: bookData.url, contents: bookData.contents, isbn: bookData.isbn, datetime: bookData.datetime)
+                let realmBookModel = RealmBookModel(author: authorList, thumnail: bookData.thumbnail, title: bookData.title, publisher: bookData.publisher, salePrice: bookData.salePrice, url: bookData.url, contents: bookData.contents, isbn: bookData.isbn, datetime: bookData.datetime, price: bookData.price, rate: 0)
                 
                 //table에 recod 추가
                 realm.add(realmBookModel)
@@ -48,10 +58,12 @@ class RealmMananger{
         }
     }
     
+    ///Realm의 테이블을 가져옵니다.
     func fetch() -> Results<RealmBookModel>{
         return realm.objects(RealmBookModel.self).sorted(byKeyPath: "title")
     }
     
+    ///Realm의 Like 속성 값을 업데이트 합니다.
     func updtaeRealmLikeData(bookRealmData: RealmBookModel, isSelected: Bool){
         do{
             try realm.write{
@@ -64,6 +76,7 @@ class RealmMananger{
         }
     }
     
+    ///Realm의 메모 속성의 값을 업데이트 합니다.
     func updateMemoRealmData(bookRealmData: RealmBookModel, memo: String){
         do{
             try realm.write{
@@ -76,6 +89,7 @@ class RealmMananger{
         }
     }
     
+    ///Realm의 Record를 삭제합니다.
     func deleteRealm(bookRealmData: RealmBookModel) {
         do{
             try realm.write {

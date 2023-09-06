@@ -12,6 +12,8 @@ class BookShelfCollectionViewController: UICollectionViewController {
     //MARK: - Properties
     var searchBookData: Results<RealmBookModel>!
     
+    let realm = RealmMananger()
+    
     //MARK: - properties
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +23,8 @@ class BookShelfCollectionViewController: UICollectionViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let realm = try! Realm()
         
-        searchBookData = try! realm.objects(RealmBookModel.self).sorted(byKeyPath: "title")
+        searchBookData = realm.fetch()
         
 //        for item in searchBookData{
 //            var authorArray: [String] = []

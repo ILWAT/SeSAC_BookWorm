@@ -57,7 +57,7 @@ class DetailInfoViewController: UIViewController {
         
         //이미지 설정
 //        ImgView.image = data.image ?? UIImage().withTintColor(.systemGray)
-        let url = URL(string: bookRealmData.thumnail)
+        let url = URL(string: bookRealmData.thumbnail)
         ImgView.kf.setImage(with: url)
         
         //부가정보라벨 설정

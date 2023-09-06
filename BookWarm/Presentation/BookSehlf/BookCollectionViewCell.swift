@@ -53,7 +53,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         contentTitleLabel.text = data.title
         contentTitleLabel.setLabelColorWhite(true, false)
         
-        let url = URL(string: data.thumnail)
+        let url = URL(string: data.thumbnail)
         contentImgView.kf.setImage(with: url)
         
         contentRateLabel.setLabelColorWhite(false, true)

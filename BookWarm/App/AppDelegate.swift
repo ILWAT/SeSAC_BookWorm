@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let config = Realm.Configuration(schemaVersion: 5) { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+                migration.renameProperty(onType: RealmBookModel.className(), from: "thumnail", to: "thumbnail") //컬럼명 변경
+            }
+            
+            if oldSchemaVersion < 2 { } //price 컬럼 추가
+            
+            if oldSchemaVersion < 3 { //discounted 컬럼 추가
+                migration.enumerateObjects(ofType: RealmBookModel.className()) { oldObject, newObject in
+                    guard let new = newObject else {return} //바뀌는 테이블
+                    guard let old = oldObject else {return} //이전 테이블
+                    
+                    new["discountedPrice"] = (old["price"] as! Int) - (old["salePrice"] as! Int)
+                }
+            }
+            
+            if oldSchemaVersion < 4 { //한줄 책 정보, 평점 컬럼 생성 //다수 수정도 가능
+                migration.enumerateObjects(ofType: RealmBookModel.className()) { oldObject, newObject in
+                    guard let new = newObject else {return} //바뀌는 테이블
+                    guard let old = oldObject else {return} //이전 테이블
+                    
+                    new["oneLineDescription"] = "책 제목: \(old["title"]) / 판매가격: \(old["salePrice"])"
+                    
+                    new["rate"] = 0
+                }
+            }
+            
+            if oldSchemaVersion < 5 { } //한줄 책정보 컬럼 삭제
+            
+            
+        }
+    
+        Realm.Configuration.defaultConfiguration = config
+        
         return true
     }
 

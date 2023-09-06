@@ -11,7 +11,7 @@ import RealmSwift
 class RealmBookModel: Object{
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var author: List<Author>
-    @Persisted var thumnail: String
+    @Persisted var thumbnail: String
     @Persisted var title: String
     @Persisted var publisher: String
     @Persisted var salePrice: Int
@@ -23,12 +23,15 @@ class RealmBookModel: Object{
     @Persisted var isbn: String
     @Persisted var datetime: String
     @Persisted var memo: String?
+    @Persisted var price: Int
+    @Persisted var discountedPrice: Int
+    @Persisted var rate: Double
     
-    convenience init(author: List<Author>, thumnail: String, title: String, publisher: String, salePrice: Int, url: String, status: String? = nil, translator: String? = nil, contents: String, isbn: String, datetime: String) {
+    convenience init(author: List<Author>, thumnail: String, title: String, publisher: String, salePrice: Int, url: String, status: String? = nil, translator: String? = nil, contents: String, isbn: String, datetime: String, price: Int, rate: Double) {
         self.init()
         
         self.author = author
-        self.thumnail = thumnail
+        self.thumbnail = thumnail
         self.title = title
         self.publisher = publisher
         self.salePrice = salePrice
@@ -40,6 +43,10 @@ class RealmBookModel: Object{
         self.datetime = datetime
         self.like = false
         self.memo = nil
+        self.price = price
+        self.discountedPrice = price - salePrice
+        self.rate = rate
+        
     }
 }
 
